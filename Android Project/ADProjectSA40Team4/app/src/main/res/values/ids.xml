@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="list_heading" type="id">List Heading</item>
+    <item name="list_request" type="id">List Request</item>
+    <item name="list_collection_points" type="id">CollectionPoints</item>
+    <item name="list_data" type="id">listdata</item>
+</resources>

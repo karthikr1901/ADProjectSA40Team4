@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Logic University</string>
+
+    <string name="navigation_drawer_open"></string>
+    <string name="navigation_drawer_close"></string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Log Out</string>
+    <string name="title_activity_login">Login</string>
+
+    <string name="user">Email</string>
+    <string name="password">Password</string>
+    <string name="confirmpass">Confirm Password</string>
+
+    <string name="profileheader">Create account</string>
+    <string name="loginheader">Login</string>
+
+    <string name="noaccount">User Name or Passward is wrong!</string>
+    <string name="validdata">Please enter valid data</string>
+
+    <string name="STMTitle1">Conso: Requisition Form</string>
+    <string name="STMTitle2">Inventory Status</string>
+    <string name="STMTitle3">Collection Point Info</string>
+    <string name="EMPTitle1">Approve Adjustment</string>
+    <string name="EMPTitle2">Requesition Report</string>
+    <string name="EMPTitle3">Order Report</string>
+
+    <string name="DPHTitle1">Approve/Reject Request</string>
+    <string name="DPHTitle2">Delegate Authority</string>
+    <string name="DPHTitle3">Cancellation Of Authority</string>
+    <string name="DPHTitle4">Appoint Representative</string>
+
+    <string name="noCollectionPoint">No Collection Point</string>
+    <string name="InvalidemployeeName">Invalid Employee Name</string>
+    <string name="radioPoint" />
+    <string name="NoCollectionPoint">No Collection Point for You to Deliver</string>
+    <string name="SupervisorTitle1">Approve Adjustment</string>
+    <string name="SupervisorTitle2">Request Report</string>
+    <string name="SupervisorTitle3">Order Report</string>
+    <string name="NoLowStock">No Low Stock</string>
+    <string name="totalCount">Total Rows : 0 rows</string>
+    <string name="STMTitle4">Receive PO</string>
+
+
+</resources>

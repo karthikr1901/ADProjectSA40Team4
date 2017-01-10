@@ -1,0 +1,709 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ADProjectSA40Team4Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Adjustment">
+    <Key>
+      <PropertyRef Name="AdjustmentID" />
+    </Key>
+    <Property Name="AdjustmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdjustmentStatus" Type="nvarchar" MaxLength="15" />
+    <Property Name="AdjustedByEmployeeID" Type="int" />
+    <Property Name="ApprovedByEmployeeID" Type="int" />
+    <Property Name="RequestAdjustmentDate" Type="datetime" />
+    <Property Name="ApproveAdjustmentDate" Type="datetime" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="AdjustmentDetail">
+    <Key>
+      <PropertyRef Name="AdjustmentDetailID" />
+    </Key>
+    <Property Name="AdjustmentDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ItemID" Type="nvarchar" MaxLength="10" />
+    <Property Name="AdjustmentID" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="AdjustmentRemark" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Location" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="CollectionPoint">
+    <Key>
+      <PropertyRef Name="CollectionPointID" />
+    </Key>
+    <Property Name="CollectionPointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Place" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Time" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="InCharge" Type="int" />
+  </EntityType>
+  <EntityType Name="Control">
+    <Key>
+      <PropertyRef Name="Prefix" />
+      <PropertyRef Name="Length" />
+    </Key>
+    <Property Name="Prefix" Type="nvarchar" MaxLength="3" Nullable="false" />
+    <Property Name="Length" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="LastUpdateDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DelicatedInfo">
+    <Key>
+      <PropertyRef Name="DelicatedInfoID" />
+    </Key>
+    <Property Name="DelicatedInfoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="fromDate" Type="datetime" />
+    <Property Name="toDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CollectionPointID" Type="int" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EmployeePassword" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmployeeContactNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="EmployeeEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="EmployeeAddress" Type="nvarchar" MaxLength="100" />
+    <Property Name="RoleID" Type="int" />
+    <Property Name="DepartmentID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="ReorderLevel" Type="int" Nullable="false" />
+    <Property Name="ReorderQuantity" Type="int" Nullable="false" />
+    <Property Name="UnitOfMeasurement" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="SuggestedQuantity" Type="int" />
+    <Property Name="CategoryID" Type="int" />
+  </EntityType>
+  <EntityType Name="PurchaseOrder">
+    <Key>
+      <PropertyRef Name="PurchaseOrderID" />
+    </Key>
+    <Property Name="PurchaseOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurchaseStatus" Type="nvarchar" MaxLength="15" />
+    <Property Name="SupplierID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="ReceivedByEmployeeID" Type="int" />
+    <Property Name="DeliverVoucherNo" Type="nvarchar" MaxLength="10" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="ExpectedDeliveryDate" Type="datetime" />
+    <Property Name="ReceivedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderDetail">
+    <Key>
+      <PropertyRef Name="PurchaseOrderDetailID" />
+    </Key>
+    <Property Name="PurchaseOrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurchaseOrderID" Type="int" />
+    <Property Name="ItemID" Type="nvarchar" MaxLength="10" />
+    <Property Name="OrderQty" Type="int" />
+    <Property Name="ReceivedQty" Type="int" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestStatus" Type="nvarchar" MaxLength="15" />
+    <Property Name="RequestByEmployeeID" Type="int" />
+    <Property Name="RequestByDepartmentID" Type="nvarchar" MaxLength="10" />
+    <Property Name="ApprovedByEmployeeID" Type="int" />
+    <Property Name="ProcessedByEmployeeID" Type="int" />
+    <Property Name="ReceivedByEmployeeID" Type="int" />
+    <Property Name="RequestDate" Type="datetime" />
+    <Property Name="ApproveDate" Type="datetime" />
+    <Property Name="ReceivedDate" Type="datetime" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="RequestDetail">
+    <Key>
+      <PropertyRef Name="RequestDetailID" />
+    </Key>
+    <Property Name="RequestDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequestID" Type="int" />
+    <Property Name="RequestedItem" Type="nvarchar" MaxLength="10" />
+    <Property Name="RequestedQty" Type="int" />
+    <Property Name="ReceivedQty" Type="int" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplierName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SupplierContactNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="SupplierEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="SupplierAddress" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="SupplyItem">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="ItemID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Priority" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.ApproveRejectRequest_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ApproveRejectRequest_View">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="RequestedQty" Type="int" />
+    <Property Name="UnitOfMeasurement" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.DisplayLowLevelStock_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DisplayLowLevelStock_View">
+    <Key>
+      <PropertyRef Name="ItemID" />
+      <PropertyRef Name="CategoryName" />
+      <PropertyRef Name="ReorderLevel" />
+      <PropertyRef Name="ReorderQuantity" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="ItemID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="Location" Type="nvarchar" MaxLength="15" />
+    <Property Name="Balance" Type="int" />
+    <Property Name="Balance after reorder" Type="int" />
+    <Property Name="ReorderLevel" Type="int" Nullable="false" />
+    <Property Name="ReorderQuantity" Type="int" Nullable="false" />
+    <Property Name="SuggestedQuantity" Type="int" />
+    <Property Name="UnitOfMeasurement" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.DISTINCTEMPLOYEE_VIEW' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DISTINCTEMPLOYEE_VIEW">
+    <Key>
+      <PropertyRef Name="EmployeeName" />
+    </Key>
+    <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.RaiseAdjustmentVoucher_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="RaiseAdjustmentVoucher_View">
+    <Key>
+      <PropertyRef Name="UnitOfMeasurement" />
+      <PropertyRef Name="Price" />
+    </Key>
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitOfMeasurement" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AdjustmentRemark" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.ReorderReport_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReorderReport_View">
+    <Key>
+      <PropertyRef Name="ItemID" />
+      <PropertyRef Name="CategoryName" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="ItemID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="TotalQty" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="UnitOfMeasurement" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.RequestHistory_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="RequestHistory_View">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="RequestedQty" Type="int" />
+    <Property Name="ReceivedQty" Type="int" />
+    <Property Name="UnitOfMeasurement" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'ADProjectSA40Team4.dbo.RequestReport_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="RequestReport_View">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="DepartmentName" />
+      <PropertyRef Name="CategoryName" />
+    </Key>
+    <Property Name="RequestID" Type="int" Nullable="false" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Total Price" Type="decimal" Precision="38" Scale="0" />
+    <Property Name="Total Quantity" Type="int" />
+    <Property Name="RequestDate" Type="datetime" />
+  </EntityType>
+  <Association Name="fk_AdjDetailAdjustmentID">
+    <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="0..1" />
+    <End Role="AdjustmentDetail" Type="Self.AdjustmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Adjustment">
+        <PropertyRef Name="AdjustmentID" />
+      </Principal>
+      <Dependent Role="AdjustmentDetail">
+        <PropertyRef Name="AdjustmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AdjDetailItemID">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="AdjustmentDetail" Type="Self.AdjustmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="AdjustmentDetail">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AdjustedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Adjustment">
+        <PropertyRef Name="AdjustedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ApprovedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Adjustment">
+        <PropertyRef Name="ApprovedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DeptCollectionPointID">
+    <End Role="CollectionPoint" Type="Self.CollectionPoint" Multiplicity="0..1" />
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollectionPoint">
+        <PropertyRef Name="CollectionPointID" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="CollectionPointID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DInfoEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="DelicatedInfo" Type="Self.DelicatedInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="DelicatedInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmpRoleID">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_InCharge">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="CollectionPoint" Type="Self.CollectionPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="CollectionPoint">
+        <PropertyRef Name="InCharge" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ItemCategoryID">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PODItemID">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_POEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_POSupplierID">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PurchaseOrderID">
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrder">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqApprovedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="ApprovedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqDetailRequestedItem">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="RequestDetail" Type="Self.RequestDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="RequestDetail">
+        <PropertyRef Name="RequestedItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqDetailRequestID">
+    <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+    <End Role="RequestDetail" Type="Self.RequestDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="RequestID" />
+      </Principal>
+      <Dependent Role="RequestDetail">
+        <PropertyRef Name="RequestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqProcessedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="ProcessedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqReceivedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="ReceivedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqRequestByDepartmentID">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="RequestByDepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqRequestByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="RequestByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SupplierID">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+    <End Role="SupplyItem" Type="Self.SupplyItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="SupplyItem">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SupplyItemID">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="SupplyItem" Type="Self.SupplyItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="SupplyItem">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ADProjectSA40Team4ModelStoreContainer">
+    <EntitySet Name="Adjustment" EntityType="Self.Adjustment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AdjustmentDetail" EntityType="Self.AdjustmentDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CollectionPoint" EntityType="Self.CollectionPoint" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Control" EntityType="Self.Control" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DelicatedInfo" EntityType="Self.DelicatedInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrder" EntityType="Self.PurchaseOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseOrderDetail" EntityType="Self.PurchaseOrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestDetail" EntityType="Self.RequestDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SupplyItem" EntityType="Self.SupplyItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ApproveRejectRequest_View" EntityType="Self.ApproveRejectRequest_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ApproveRejectRequest_View].[RequestID] AS [RequestID], 
+    [ApproveRejectRequest_View].[Description] AS [Description], 
+    [ApproveRejectRequest_View].[RequestedQty] AS [RequestedQty], 
+    [ApproveRejectRequest_View].[UnitOfMeasurement] AS [UnitOfMeasurement]
+    FROM [dbo].[ApproveRejectRequest_View] AS [ApproveRejectRequest_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DisplayLowLevelStock_View" EntityType="Self.DisplayLowLevelStock_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DisplayLowLevelStock_View].[ItemID] AS [ItemID], 
+    [DisplayLowLevelStock_View].[CategoryName] AS [CategoryName], 
+    [DisplayLowLevelStock_View].[Description] AS [Description], 
+    [DisplayLowLevelStock_View].[Location] AS [Location], 
+    [DisplayLowLevelStock_View].[Balance] AS [Balance], 
+    [DisplayLowLevelStock_View].[Balance after reorder] AS [Balance after reorder], 
+    [DisplayLowLevelStock_View].[ReorderLevel] AS [ReorderLevel], 
+    [DisplayLowLevelStock_View].[ReorderQuantity] AS [ReorderQuantity], 
+    [DisplayLowLevelStock_View].[SuggestedQuantity] AS [SuggestedQuantity], 
+    [DisplayLowLevelStock_View].[UnitOfMeasurement] AS [UnitOfMeasurement]
+    FROM [dbo].[DisplayLowLevelStock_View] AS [DisplayLowLevelStock_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DISTINCTEMPLOYEE_VIEW" EntityType="Self.DISTINCTEMPLOYEE_VIEW" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DISTINCTEMPLOYEE_VIEW].[EmployeeName] AS [EmployeeName]
+    FROM [dbo].[DISTINCTEMPLOYEE_VIEW] AS [DISTINCTEMPLOYEE_VIEW]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="RaiseAdjustmentVoucher_View" EntityType="Self.RaiseAdjustmentVoucher_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RaiseAdjustmentVoucher_View].[Description] AS [Description], 
+    [RaiseAdjustmentVoucher_View].[Quantity] AS [Quantity], 
+    [RaiseAdjustmentVoucher_View].[UnitOfMeasurement] AS [UnitOfMeasurement], 
+    [RaiseAdjustmentVoucher_View].[Price] AS [Price], 
+    [RaiseAdjustmentVoucher_View].[TotalPrice] AS [TotalPrice], 
+    [RaiseAdjustmentVoucher_View].[AdjustmentRemark] AS [AdjustmentRemark]
+    FROM [dbo].[RaiseAdjustmentVoucher_View] AS [RaiseAdjustmentVoucher_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ReorderReport_View" EntityType="Self.ReorderReport_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ReorderReport_View].[ItemID] AS [ItemID], 
+    [ReorderReport_View].[CategoryName] AS [CategoryName], 
+    [ReorderReport_View].[Description] AS [Description], 
+    [ReorderReport_View].[TotalQty] AS [TotalQty], 
+    [ReorderReport_View].[Price] AS [Price], 
+    [ReorderReport_View].[UnitOfMeasurement] AS [UnitOfMeasurement], 
+    [ReorderReport_View].[OrderDate] AS [OrderDate]
+    FROM [dbo].[ReorderReport_View] AS [ReorderReport_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="RequestHistory_View" EntityType="Self.RequestHistory_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RequestHistory_View].[RequestID] AS [RequestID], 
+    [RequestHistory_View].[Description] AS [Description], 
+    [RequestHistory_View].[RequestedQty] AS [RequestedQty], 
+    [RequestHistory_View].[ReceivedQty] AS [ReceivedQty], 
+    [RequestHistory_View].[UnitOfMeasurement] AS [UnitOfMeasurement]
+    FROM [dbo].[RequestHistory_View] AS [RequestHistory_View]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="RequestReport_View" EntityType="Self.RequestReport_View" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RequestReport_View].[RequestID] AS [RequestID], 
+    [RequestReport_View].[DepartmentName] AS [DepartmentName], 
+    [RequestReport_View].[CategoryName] AS [CategoryName], 
+    [RequestReport_View].[Total Price] AS [Total Price], 
+    [RequestReport_View].[Total Quantity] AS [Total Quantity], 
+    [RequestReport_View].[RequestDate] AS [RequestDate]
+    FROM [dbo].[RequestReport_View] AS [RequestReport_View]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_AdjDetailAdjustmentID" Association="Self.fk_AdjDetailAdjustmentID">
+      <End Role="Adjustment" EntitySet="Adjustment" />
+      <End Role="AdjustmentDetail" EntitySet="AdjustmentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AdjDetailItemID" Association="Self.fk_AdjDetailItemID">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="AdjustmentDetail" EntitySet="AdjustmentDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AdjustedByEmployeeID" Association="Self.fk_AdjustedByEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Adjustment" EntitySet="Adjustment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ApprovedByEmployeeID" Association="Self.fk_ApprovedByEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Adjustment" EntitySet="Adjustment" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DeptCollectionPointID" Association="Self.fk_DeptCollectionPointID">
+      <End Role="CollectionPoint" EntitySet="CollectionPoint" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DInfoEmployeeID" Association="Self.fk_DInfoEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="DelicatedInfo" EntitySet="DelicatedInfo" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmpRoleID" Association="Self.fk_EmpRoleID">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="fk_InCharge" Association="Self.fk_InCharge">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="CollectionPoint" EntitySet="CollectionPoint" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ItemCategoryID" Association="Self.fk_ItemCategoryID">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Item" EntitySet="Item" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PODItemID" Association="Self.fk_PODItemID">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_POEmployeeID" Association="Self.fk_POEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="fk_POSupplierID" Association="Self.fk_POSupplierID">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PurchaseOrderID" Association="Self.fk_PurchaseOrderID">
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrder" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqApprovedByEmployeeID" Association="Self.fk_ReqApprovedByEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqDetailRequestedItem" Association="Self.fk_ReqDetailRequestedItem">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="RequestDetail" EntitySet="RequestDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqDetailRequestID" Association="Self.fk_ReqDetailRequestID">
+      <End Role="Request" EntitySet="Request" />
+      <End Role="RequestDetail" EntitySet="RequestDetail" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqProcessedByEmployeeID" Association="Self.fk_ReqProcessedByEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqReceivedByEmployeeID" Association="Self.fk_ReqReceivedByEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqRequestByDepartmentID" Association="Self.fk_ReqRequestByDepartmentID">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqRequestByEmployeeID" Association="Self.fk_ReqRequestByEmployeeID">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Request" EntitySet="Request" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SupplierID" Association="Self.fk_SupplierID">
+      <End Role="Supplier" EntitySet="Supplier" />
+      <End Role="SupplyItem" EntitySet="SupplyItem" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SupplyItemID" Association="Self.fk_SupplyItemID">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="SupplyItem" EntitySet="SupplyItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

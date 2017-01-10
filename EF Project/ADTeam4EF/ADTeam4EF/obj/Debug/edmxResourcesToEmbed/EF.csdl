@@ -1,0 +1,679 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ADProjectSA40Team4Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Adjustment">
+    <Key>
+      <PropertyRef Name="AdjustmentID" />
+    </Key>
+    <Property Name="AdjustmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdjustmentStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="AdjustedByEmployeeID" Type="Int32" />
+    <Property Name="ApprovedByEmployeeID" Type="Int32" />
+    <Property Name="RequestAdjustmentDate" Type="DateTime" Precision="3" />
+    <Property Name="ApproveAdjustmentDate" Type="DateTime" Precision="3" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="AdjustmentDetails" Relationship="Self.fk_AdjDetailAdjustmentID" FromRole="Adjustment" ToRole="AdjustmentDetail" />
+    <NavigationProperty Name="Employee" Relationship="Self.fk_AdjustedByEmployeeID" FromRole="Adjustment" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="Self.fk_ApprovedByEmployeeID" FromRole="Adjustment" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="AdjustmentDetail">
+    <Key>
+      <PropertyRef Name="AdjustmentDetailID" />
+    </Key>
+    <Property Name="AdjustmentDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="AdjustmentID" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="AdjustmentRemark" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Adjustment" Relationship="Self.fk_AdjDetailAdjustmentID" FromRole="AdjustmentDetail" ToRole="Adjustment" />
+    <NavigationProperty Name="Item" Relationship="Self.fk_AdjDetailItemID" FromRole="AdjustmentDetail" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Items" Relationship="Self.fk_ItemCategoryID" FromRole="Category" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="CollectionPoint">
+    <Key>
+      <PropertyRef Name="CollectionPointID" />
+    </Key>
+    <Property Name="CollectionPointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Place" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Time" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="InCharge" Type="Int32" />
+    <NavigationProperty Name="Departments" Relationship="Self.fk_DeptCollectionPointID" FromRole="CollectionPoint" ToRole="Department" />
+    <NavigationProperty Name="Employee" Relationship="Self.fk_InCharge" FromRole="CollectionPoint" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Control">
+    <Key>
+      <PropertyRef Name="Prefix" />
+      <PropertyRef Name="Length" />
+    </Key>
+    <Property Name="Prefix" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Length" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="DelicatedInfo">
+    <Key>
+      <PropertyRef Name="DelicatedInfoID" />
+    </Key>
+    <Property Name="DelicatedInfoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="fromDate" Type="DateTime" Precision="3" />
+    <Property Name="toDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.fk_DInfoEmployeeID" FromRole="DelicatedInfo" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CollectionPointID" Type="Int32" />
+    <NavigationProperty Name="CollectionPoint" Relationship="Self.fk_DeptCollectionPointID" FromRole="Department" ToRole="CollectionPoint" />
+    <NavigationProperty Name="Requests" Relationship="Self.fk_ReqRequestByDepartmentID" FromRole="Department" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmployeePassword" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmployeeContactNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EmployeeEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EmployeeAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RoleID" Type="Int32" />
+    <Property Name="DepartmentID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Adjustments" Relationship="Self.fk_AdjustedByEmployeeID" FromRole="Employee" ToRole="Adjustment" />
+    <NavigationProperty Name="Adjustments1" Relationship="Self.fk_ApprovedByEmployeeID" FromRole="Employee" ToRole="Adjustment" />
+    <NavigationProperty Name="CollectionPoints" Relationship="Self.fk_InCharge" FromRole="Employee" ToRole="CollectionPoint" />
+    <NavigationProperty Name="DelicatedInfoes" Relationship="Self.fk_DInfoEmployeeID" FromRole="Employee" ToRole="DelicatedInfo" />
+    <NavigationProperty Name="Role" Relationship="Self.fk_EmpRoleID" FromRole="Employee" ToRole="Role" />
+    <NavigationProperty Name="PurchaseOrders" Relationship="Self.fk_POEmployeeID" FromRole="Employee" ToRole="PurchaseOrder" />
+    <NavigationProperty Name="Requests" Relationship="Self.fk_ReqApprovedByEmployeeID" FromRole="Employee" ToRole="Request" />
+    <NavigationProperty Name="Requests1" Relationship="Self.fk_ReqProcessedByEmployeeID" FromRole="Employee" ToRole="Request" />
+    <NavigationProperty Name="Requests2" Relationship="Self.fk_ReqReceivedByEmployeeID" FromRole="Employee" ToRole="Request" />
+    <NavigationProperty Name="Requests3" Relationship="Self.fk_ReqRequestByEmployeeID" FromRole="Employee" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="ItemID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ReorderLevel" Type="Int32" Nullable="false" />
+    <Property Name="ReorderQuantity" Type="Int32" Nullable="false" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Balance" Type="Int32" />
+    <Property Name="SuggestedQuantity" Type="Int32" />
+    <Property Name="CategoryID" Type="Int32" />
+    <NavigationProperty Name="AdjustmentDetails" Relationship="Self.fk_AdjDetailItemID" FromRole="Item" ToRole="AdjustmentDetail" />
+    <NavigationProperty Name="Category" Relationship="Self.fk_ItemCategoryID" FromRole="Item" ToRole="Category" />
+    <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.fk_PODItemID" FromRole="Item" ToRole="PurchaseOrderDetail" />
+    <NavigationProperty Name="RequestDetails" Relationship="Self.fk_ReqDetailRequestedItem" FromRole="Item" ToRole="RequestDetail" />
+    <NavigationProperty Name="SupplyItems" Relationship="Self.fk_SupplyItemID" FromRole="Item" ToRole="SupplyItem" />
+  </EntityType>
+  <EntityType Name="PurchaseOrder">
+    <Key>
+      <PropertyRef Name="PurchaseOrderID" />
+    </Key>
+    <Property Name="PurchaseOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PurchaseStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="SupplierID" Type="Int32" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="ReceivedByEmployeeID" Type="Int32" />
+    <Property Name="DeliverVoucherNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="ExpectedDeliveryDate" Type="DateTime" Precision="3" />
+    <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Employee" Relationship="Self.fk_POEmployeeID" FromRole="PurchaseOrder" ToRole="Employee" />
+    <NavigationProperty Name="Supplier" Relationship="Self.fk_POSupplierID" FromRole="PurchaseOrder" ToRole="Supplier" />
+    <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.fk_PurchaseOrderID" FromRole="PurchaseOrder" ToRole="PurchaseOrderDetail" />
+  </EntityType>
+  <EntityType Name="PurchaseOrderDetail">
+    <Key>
+      <PropertyRef Name="PurchaseOrderDetailID" />
+    </Key>
+    <Property Name="PurchaseOrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PurchaseOrderID" Type="Int32" />
+    <Property Name="ItemID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="OrderQty" Type="Int32" />
+    <Property Name="ReceivedQty" Type="Int32" />
+    <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Item" Relationship="Self.fk_PODItemID" FromRole="PurchaseOrderDetail" ToRole="Item" />
+    <NavigationProperty Name="PurchaseOrder" Relationship="Self.fk_PurchaseOrderID" FromRole="PurchaseOrderDetail" ToRole="PurchaseOrder" />
+  </EntityType>
+  <EntityType Name="Request">
+    <Key>
+      <PropertyRef Name="RequestID" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestStatus" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="RequestByEmployeeID" Type="Int32" />
+    <Property Name="RequestByDepartmentID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovedByEmployeeID" Type="Int32" />
+    <Property Name="ProcessedByEmployeeID" Type="Int32" />
+    <Property Name="ReceivedByEmployeeID" Type="Int32" />
+    <Property Name="RequestDate" Type="DateTime" Precision="3" />
+    <Property Name="ApproveDate" Type="DateTime" Precision="3" />
+    <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+    <Property Name="Remark" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Department" Relationship="Self.fk_ReqRequestByDepartmentID" FromRole="Request" ToRole="Department" />
+    <NavigationProperty Name="Employee" Relationship="Self.fk_ReqApprovedByEmployeeID" FromRole="Request" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="Self.fk_ReqProcessedByEmployeeID" FromRole="Request" ToRole="Employee" />
+    <NavigationProperty Name="Employee2" Relationship="Self.fk_ReqReceivedByEmployeeID" FromRole="Request" ToRole="Employee" />
+    <NavigationProperty Name="Employee3" Relationship="Self.fk_ReqRequestByEmployeeID" FromRole="Request" ToRole="Employee" />
+    <NavigationProperty Name="RequestDetails" Relationship="Self.fk_ReqDetailRequestID" FromRole="Request" ToRole="RequestDetail" />
+  </EntityType>
+  <EntityType Name="RequestDetail">
+    <Key>
+      <PropertyRef Name="RequestDetailID" />
+    </Key>
+    <Property Name="RequestDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RequestID" Type="Int32" />
+    <Property Name="RequestedItem" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="RequestedQty" Type="Int32" />
+    <Property Name="ReceivedQty" Type="Int32" />
+    <NavigationProperty Name="Item" Relationship="Self.fk_ReqDetailRequestedItem" FromRole="RequestDetail" ToRole="Item" />
+    <NavigationProperty Name="Request" Relationship="Self.fk_ReqDetailRequestID" FromRole="RequestDetail" ToRole="Request" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="RoleID" />
+    </Key>
+    <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.fk_EmpRoleID" FromRole="Role" ToRole="Employee" />
+  </EntityType>
+  <EntityType Name="Supplier">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SupplierName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SupplierContactNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SupplierEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SupplierAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PurchaseOrders" Relationship="Self.fk_POSupplierID" FromRole="Supplier" ToRole="PurchaseOrder" />
+    <NavigationProperty Name="SupplyItems" Relationship="Self.fk_SupplierID" FromRole="Supplier" ToRole="SupplyItem" />
+  </EntityType>
+  <EntityType Name="SupplyItem">
+    <Key>
+      <PropertyRef Name="SupplierID" />
+      <PropertyRef Name="ItemID" />
+    </Key>
+    <Property Name="SupplierID" Type="Int32" Nullable="false" />
+    <Property Name="ItemID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Priority" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Item" Relationship="Self.fk_SupplyItemID" FromRole="SupplyItem" ToRole="Item" />
+    <NavigationProperty Name="Supplier" Relationship="Self.fk_SupplierID" FromRole="SupplyItem" ToRole="Supplier" />
+  </EntityType>
+  <EntityType Name="ApproveRejectRequest_View">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="RequestedQty" Type="Int32" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DisplayLowLevelStock_View">
+    <Key>
+      <PropertyRef Name="ItemID" />
+      <PropertyRef Name="CategoryName" />
+      <PropertyRef Name="ReorderLevel" />
+      <PropertyRef Name="ReorderQuantity" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="ItemID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Location" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Balance" Type="Int32" />
+    <Property Name="Balance_after_reorder" Type="Int32" />
+    <Property Name="ReorderLevel" Type="Int32" Nullable="false" />
+    <Property Name="ReorderQuantity" Type="Int32" Nullable="false" />
+    <Property Name="SuggestedQuantity" Type="Int32" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DISTINCTEMPLOYEE_VIEW">
+    <Key>
+      <PropertyRef Name="EmployeeName" />
+    </Key>
+    <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RaiseAdjustmentVoucher_View">
+    <Key>
+      <PropertyRef Name="UnitOfMeasurement" />
+      <PropertyRef Name="Price" />
+    </Key>
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="AdjustmentRemark" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ReorderReport_View">
+    <Key>
+      <PropertyRef Name="ItemID" />
+      <PropertyRef Name="CategoryName" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="ItemID" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="TotalQty" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="RequestHistory_View">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="UnitOfMeasurement" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="RequestedQty" Type="Int32" />
+    <Property Name="ReceivedQty" Type="Int32" />
+    <Property Name="UnitOfMeasurement" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RequestReport_View">
+    <Key>
+      <PropertyRef Name="RequestID" />
+      <PropertyRef Name="DepartmentName" />
+      <PropertyRef Name="CategoryName" />
+    </Key>
+    <Property Name="RequestID" Type="Int32" Nullable="false" />
+    <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Total_Price" Type="Decimal" Precision="38" Scale="0" />
+    <Property Name="Total_Quantity" Type="Int32" />
+    <Property Name="RequestDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="fk_AdjDetailAdjustmentID">
+    <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="0..1" />
+    <End Role="AdjustmentDetail" Type="Self.AdjustmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Adjustment">
+        <PropertyRef Name="AdjustmentID" />
+      </Principal>
+      <Dependent Role="AdjustmentDetail">
+        <PropertyRef Name="AdjustmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AdjustedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Adjustment">
+        <PropertyRef Name="AdjustedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ApprovedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Adjustment" Type="Self.Adjustment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Adjustment">
+        <PropertyRef Name="ApprovedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_AdjDetailItemID">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="AdjustmentDetail" Type="Self.AdjustmentDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="AdjustmentDetail">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ItemCategoryID">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DeptCollectionPointID">
+    <End Role="CollectionPoint" Type="Self.CollectionPoint" Multiplicity="0..1" />
+    <End Role="Department" Type="Self.Department" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CollectionPoint">
+        <PropertyRef Name="CollectionPointID" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="CollectionPointID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_InCharge">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="CollectionPoint" Type="Self.CollectionPoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="CollectionPoint">
+        <PropertyRef Name="InCharge" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_DInfoEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="DelicatedInfo" Type="Self.DelicatedInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="DelicatedInfo">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqRequestByDepartmentID">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="RequestByDepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_EmpRoleID">
+    <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_POEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqApprovedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="ApprovedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqProcessedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="ProcessedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqReceivedByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="ReceivedByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqRequestByEmployeeID">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Request" Type="Self.Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Request">
+        <PropertyRef Name="RequestByEmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PODItemID">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqDetailRequestedItem">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="RequestDetail" Type="Self.RequestDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="RequestDetail">
+        <PropertyRef Name="RequestedItem" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SupplyItemID">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="SupplyItem" Type="Self.SupplyItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="ItemID" />
+      </Principal>
+      <Dependent Role="SupplyItem">
+        <PropertyRef Name="ItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_POSupplierID">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="PurchaseOrder">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PurchaseOrderID">
+    <End Role="PurchaseOrder" Type="Self.PurchaseOrder" Multiplicity="0..1" />
+    <End Role="PurchaseOrderDetail" Type="Self.PurchaseOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PurchaseOrder">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Principal>
+      <Dependent Role="PurchaseOrderDetail">
+        <PropertyRef Name="PurchaseOrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ReqDetailRequestID">
+    <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+    <End Role="RequestDetail" Type="Self.RequestDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Request">
+        <PropertyRef Name="RequestID" />
+      </Principal>
+      <Dependent Role="RequestDetail">
+        <PropertyRef Name="RequestID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_SupplierID">
+    <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+    <End Role="SupplyItem" Type="Self.SupplyItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="SupplierID" />
+      </Principal>
+      <Dependent Role="SupplyItem">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ADProjectSA40Team4Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Adjustments" EntityType="Self.Adjustment" />
+    <EntitySet Name="AdjustmentDetails" EntityType="Self.AdjustmentDetail" />
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="CollectionPoints" EntityType="Self.CollectionPoint" />
+    <EntitySet Name="Controls" EntityType="Self.Control" />
+    <EntitySet Name="DelicatedInfoes" EntityType="Self.DelicatedInfo" />
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrder" />
+    <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
+    <EntitySet Name="Requests" EntityType="Self.Request" />
+    <EntitySet Name="RequestDetails" EntityType="Self.RequestDetail" />
+    <EntitySet Name="Roles" EntityType="Self.Role" />
+    <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+    <EntitySet Name="SupplyItems" EntityType="Self.SupplyItem" />
+    <EntitySet Name="ApproveRejectRequest_View" EntityType="Self.ApproveRejectRequest_View" />
+    <EntitySet Name="DisplayLowLevelStock_View" EntityType="Self.DisplayLowLevelStock_View" />
+    <EntitySet Name="DISTINCTEMPLOYEE_VIEW" EntityType="Self.DISTINCTEMPLOYEE_VIEW" />
+    <EntitySet Name="RaiseAdjustmentVoucher_View" EntityType="Self.RaiseAdjustmentVoucher_View" />
+    <EntitySet Name="ReorderReport_View" EntityType="Self.ReorderReport_View" />
+    <EntitySet Name="RequestHistory_View" EntityType="Self.RequestHistory_View" />
+    <EntitySet Name="RequestReport_View" EntityType="Self.RequestReport_View" />
+    <AssociationSet Name="fk_AdjDetailAdjustmentID" Association="Self.fk_AdjDetailAdjustmentID">
+      <End Role="Adjustment" EntitySet="Adjustments" />
+      <End Role="AdjustmentDetail" EntitySet="AdjustmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AdjustedByEmployeeID" Association="Self.fk_AdjustedByEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Adjustment" EntitySet="Adjustments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ApprovedByEmployeeID" Association="Self.fk_ApprovedByEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Adjustment" EntitySet="Adjustments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_AdjDetailItemID" Association="Self.fk_AdjDetailItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="AdjustmentDetail" EntitySet="AdjustmentDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ItemCategoryID" Association="Self.fk_ItemCategoryID">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DeptCollectionPointID" Association="Self.fk_DeptCollectionPointID">
+      <End Role="CollectionPoint" EntitySet="CollectionPoints" />
+      <End Role="Department" EntitySet="Departments" />
+    </AssociationSet>
+    <AssociationSet Name="fk_InCharge" Association="Self.fk_InCharge">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="CollectionPoint" EntitySet="CollectionPoints" />
+    </AssociationSet>
+    <AssociationSet Name="fk_DInfoEmployeeID" Association="Self.fk_DInfoEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="DelicatedInfo" EntitySet="DelicatedInfoes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqRequestByDepartmentID" Association="Self.fk_ReqRequestByDepartmentID">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_EmpRoleID" Association="Self.fk_EmpRoleID">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="fk_POEmployeeID" Association="Self.fk_POEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqApprovedByEmployeeID" Association="Self.fk_ReqApprovedByEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqProcessedByEmployeeID" Association="Self.fk_ReqProcessedByEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqReceivedByEmployeeID" Association="Self.fk_ReqReceivedByEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqRequestByEmployeeID" Association="Self.fk_ReqRequestByEmployeeID">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Request" EntitySet="Requests" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PODItemID" Association="Self.fk_PODItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqDetailRequestedItem" Association="Self.fk_ReqDetailRequestedItem">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="RequestDetail" EntitySet="RequestDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SupplyItemID" Association="Self.fk_SupplyItemID">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="SupplyItem" EntitySet="SupplyItems" />
+    </AssociationSet>
+    <AssociationSet Name="fk_POSupplierID" Association="Self.fk_POSupplierID">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PurchaseOrderID" Association="Self.fk_PurchaseOrderID">
+      <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+      <End Role="PurchaseOrderDetail" EntitySet="PurchaseOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ReqDetailRequestID" Association="Self.fk_ReqDetailRequestID">
+      <End Role="Request" EntitySet="Requests" />
+      <End Role="RequestDetail" EntitySet="RequestDetails" />
+    </AssociationSet>
+    <AssociationSet Name="fk_SupplierID" Association="Self.fk_SupplierID">
+      <End Role="Supplier" EntitySet="Suppliers" />
+      <End Role="SupplyItem" EntitySet="SupplyItems" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

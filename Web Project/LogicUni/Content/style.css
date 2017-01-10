@@ -1,0 +1,134 @@
+﻿
+body {
+    margin: 0;
+    padding-top: 0px;
+}
+
+.container-body {
+    margin-top: 60px;
+}
+.container-catelogue{
+    margin-top:25px;
+}
+.notibackground{
+    background-color:#2b3e50;
+}
+.intro-header {
+    margin-top: 0px;
+    border: 0;
+    padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    background: url(../Images/bg2.jpg) no-repeat center center;
+    background-size: cover;
+    height: 800px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.dh-header {
+    margin-top: 0px;
+    border: 0;
+    padding-top: 100px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 50px;
+    text-align: center;
+    background: url(../Images/stationerybg.jpg) no-repeat center center;
+    background-size: cover;
+    height: 800px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+.jumbotron {
+    margin-top: 0;
+    background-color: transparent;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+p {
+    text-align: justify;
+}
+
+.footer {
+    position: relative;
+    margin-bottom: 0px;
+    height: 50px;
+    clear: both;
+}
+
+
+.imageblock {
+    position: relative;
+    width: 100%;
+}
+
+    .imageblock > p {
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+    }
+
+.container-fluid {
+    padding: 0;
+}
+
+.content-section-a {
+    padding-top: 10px;
+    padding-bottom: 30px;
+}
+
+.content-section-b {
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.LoginFormGroup {
+    margin-top: 180px;
+    display: block;
+    align-content: center;
+}
+
+.assignRepClass {
+    margin-top: 10px;
+    display: block;
+    align-content: center;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.pager {
+    background:  transparent;
+    color: white;
+}
+
+    /*Center the pager row holding the pager numbers*/
+    .pager table {
+        margin: 0 auto;
+    }
+
+    /*Hide the border around row holding the pager numbers*/
+    .pager tr {
+        border: hidden;
+    }
+
+    /*Space out the numbers in the pager */
+    .pager span, .pager a {
+        padding: 2px 5px;
+    }
+.approverejectbutton{
+    width:100%;
+    margin-top:10px;
+    text-align:center;
+}
+.radio, .checkbox{
+    margin-left:20px;
+}
+
+.ReportViewer{
+    margin-left:15%;
+    margin-right:15%;
+}

@@ -1,0 +1,85 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="StoreSupervisor.master.cs" Inherits="StoreSupervisor" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Logic University</title>
+    <asp:PlaceHolder runat="server">
+        <%: Styles.Render("~/Content/bootstrap.min.css") %>
+        <%: Styles.Render("~/Content/style.css") %>
+        <%: Scripts.Render("~/bundles/modernizr") %>
+
+    </asp:PlaceHolder>
+    <link href="icon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+    <form class="form" runat="server">
+
+        <header>
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" runat="server" href="~/StoreSupervisor/StoreSupervisorHome.aspx">LOGIC</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="myNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a runat="server" href="~/StoreSupervisor/StoreSupervisorHome.aspx">Home</a></li>
+                            <li><a runat="server" href="~/StoreSupervisor/ApproveAdjustmentVoucher.aspx">Approve Adjustment Voucher</a></li>
+                            <li><a runat="server" href="~/StoreSupervisor/RequestReport.aspx">Generate Request Report</a></li>
+                            <li><a runat="server" href="~/StoreSupervisor/ReorderReport.aspx">Generate Reorder Report</a></li>
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" id="empName" class="dropdown-toggle" data-toggle="dropdown" runat="server"></a>
+                                <ul class="dropdown-menu" style="padding: 15px; min-width: 250px;">
+                                    <li>
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                <div class="form-group">
+                                                    <button id="btnLogout" type="button" class="btn btn-danger btn-block" runat="server" onserverclick="btnLogout_Click">Logout</button>
+                                                    <%--<asp:Button ID="btnLogout" Text="Logout" CssClass="btn btn-danger btn-block" runat="server" OnClick="btnLogout_Click" />--%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+        <div id="body">
+            <asp:ContentPlaceHolder ID="FeaturedContent" runat="server" />
+            <section class="content-wrapper main-content clear-fix">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </section>
+        </div>
+        <%-- <footer class="footer">
+        <div class="navbar navbar-inverse">
+            <div class="navbar-text pull-left">
+                <p>&copy; <%: DateTime.Now.Year %> - LOGIC UNIVERSITY </p>
+
+            </div>
+        </div>
+    </footer>--%>
+    </form>
+    <%: Scripts.Render("~/bundles/jquery") %>
+    <%: Scripts.Render("~/bundles/bootstrap") %>
+    <%: Scripts.Render("~/bundles/myJS") %>
+</body>
+</html>

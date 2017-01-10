@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a6c90160ab14430ea0e185886e3732a7" Name="Diagram1">
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Adjustment" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.AdjustmentDetail" Width="1.5" PointX="7.5" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Category" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.CollectionPoint" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Control" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.DelicatedInfo" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Department" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Employee" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Item" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.PurchaseOrder" Width="1.5" PointX="8.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.PurchaseOrderDetail" Width="1.5" PointX="10.5" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Request" Width="1.5" PointX="9.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.RequestDetail" Width="1.5" PointX="12" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Role" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.Supplier" Width="1.5" PointX="6" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.SupplyItem" Width="1.5" PointX="10.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.ApproveRejectRequest_View" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.DisplayLowLevelStock_View" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.DISTINCTEMPLOYEE_VIEW" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.RaiseAdjustmentVoucher_View" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.ReorderReport_View" Width="1.5" PointX="12.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.RequestHistory_View" Width="1.5" PointX="12.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ADProjectSA40Team4Model.RequestReport_View" Width="1.5" PointX="14.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_AdjDetailAdjustmentID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_AdjustedByEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ApprovedByEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_AdjDetailItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ItemCategoryID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_DeptCollectionPointID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_InCharge" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_DInfoEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqRequestByDepartmentID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_EmpRoleID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_POEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqApprovedByEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqProcessedByEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqReceivedByEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqRequestByEmployeeID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_PODItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqDetailRequestedItem" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_SupplyItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_POSupplierID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_PurchaseOrderID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_ReqDetailRequestID" ManuallyRouted="false" />
+        <AssociationConnector Association="ADProjectSA40Team4Model.fk_SupplierID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
